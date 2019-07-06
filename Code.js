@@ -36,43 +36,47 @@ function include(filename){
 
 
 function userClicked(userInfo){
-  var url = "https://docs.google.com/spreadsheets/d/1LAxYac5tgYEcAoetv5R0r0MlOHFnXDNYEgRiqJ_l7Eg/edit#gid=0";
-  var ss = SpreadsheetApp.openByUrl(url);
-  var ws = ss.getSheetByName("Login Attempts");
-  
-  ws.appendRow([new Date(), userInfo.user, userInfo.pw]);
-
-  //Logger.log("someone");
+  login_attempts = getSheet("Login Attempts");
+  login_attempts.appendRow([new Date(), userInfo.user, userInfo.pw]);
 }
 
 function processForm(formObject) 
 {
   var username = formObject.username;
-  var pass = formObject.password;
+  var password = formObject.password;
   
   Logger.log(username);
-  Logger.log(pass);
-  
-  var url = "https://docs.google.com/spreadsheets/d/1LAxYac5tgYEcAoetv5R0r0MlOHFnXDNYEgRiqJ_l7Eg/edit#gid=0";
-  var ss = SpreadsheetApp.openByUrl(url);
-  var ws = ss.getSheetByName("Registered Accounts");
-  
-  const START_ROW = 2;
-  const LAST_ROW = ws.getLastRow();
-  
-  for(var i = START_ROW; i <= LAST_ROW; i++)
-  {
-    if(ws.getRange(i, 1).getValue() == username && ws.getRange(i, 2).getValue() == pass)
+  Logger.log(pass); 
+
+  return isValidLogin(username, password) ? true : false;
+}
+
+function isValidLogin(username, password)
+{
+    accounts = getSheet("Registed Accounts");
+    
+    const START_ROW = 2;
+    const LAST_ROW = accounts.getLastRow();
+    
+    for(var i = START_ROW; i <= LAST_ROW; i++)
     {
-      return true;
+      if(accounts.getRange(i, 1).getValue() == username && accounts.getRange(i, 2).getValue() == password)
+      {
+        return true;
+      }
+      else
+      {
+        Logger.log("Finsihed checking row " + i);
+      }
     }
-    else
-    {
-      Logger.log("Finsihed checking row " + i);
-    }
-  }
-  
-  return false; 
+    
+    return false; 
+}
+
+function getSheet(sheet_name)
+{
+    const url = "https://docs.google.com/spreadsheets/d/1LAxYac5tgYEcAoetv5R0r0MlOHFnXDNYEgRiqJ_l7Eg/edit#gid=0";
+    return SpreadsheetApp.openByUrl(url).getSheetByName(sheet_name);
 }
 
 
