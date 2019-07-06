@@ -40,7 +40,7 @@ function userClicked(userInfo){
   login_attempts.appendRow([new Date(), userInfo.user, userInfo.pw]);
 }
 
-function processForm(formObject) 
+function checkAccountCredentials(formObject) 
 {
   var username = formObject.username;
   var password = formObject.password;
@@ -53,14 +53,11 @@ function processForm(formObject)
 
 function isValidLogin(username, password)
 {
-    accounts = getSheet("Registered Accounts");
-    
-    const START_ROW = 2;
-    const LAST_ROW = accounts.getLastRow();
-    
-    for(var i = START_ROW; i <= LAST_ROW; i++)
+    const registered_accounts = getSheet("Registered Accounts").getDataRange().getValues();
+
+    for(var i = 1; i < registered_accounts.length; i++)
     {
-      if(accounts.getRange(i, 1).getValue() == username && accounts.getRange(i, 2).getValue() == password)
+      if(registered_accounts[i][0] == username && registered_accounts[i][1] == password)
       {
         return true;
       }

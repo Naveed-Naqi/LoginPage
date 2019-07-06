@@ -58,10 +58,18 @@
       window.addEventListener('load', preventFormSubmit);
 
       function handleFormSubmit(formObject) {
-        google.script.run.withSuccessHandler(alertTest).processForm(formObject);
+        google.script.run.withSuccessHandler(alertTest).checkAccountCredentials(formObject);
       }
       function alertTest(arg) {
-        arg ? alert("Yes") : alert("No");
+        arg ? acceptedAccountCredentials() : rejectedAccountCredentials();
+      }
+      function acceptedAccountCredentials()
+      {
+        alert("Yes");
+      }
+      function rejectedAccountCredentials()
+      {
+        alert("No");
       }
   
   </script>
