@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= include('LogIN-CSS') ?>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  
+
+  <body>
+  
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+    
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="https://static1.squarespace.com/static/53fe0c21e4b070b8a2eac501/t/57097ffa2eeb819034c4c4c4/1542582082356/?format=1500w" id="icon" alt="User Icon" style="padding: 20px" />
+        </div>
+    
+        <!-- Login Form -->
+        <form id="myForm" onsubmit="handleFormSubmit(this)">
+          <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
+          <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+          <input type="submit" id="btn" class="fadeIn fourth" value="Log In">
+        </form>
+    
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+          <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+        
+        <!-- Remind Email Address -->
+        <div id="formFooter">
+          <a class="underlineHover" href="#">Forgot Email Address Used?</a>
+        </div>
+    
+      </div>
+    </div>
+        
+    
+    
+  </body>
+  
+  <script>
+  
+        // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler(alertTest).processForm(formObject);
+      }
+      function alertTest(arg) {
+        arg ? alert("Yes") : alert("No");
+      }
+  
+  </script>
+     
+  
+  
+</html>
+
+
