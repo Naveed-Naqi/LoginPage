@@ -46,14 +46,14 @@ function processForm(formObject)
   var password = formObject.password;
   
   Logger.log(username);
-  Logger.log(pass); 
+  Logger.log(password); 
 
   return isValidLogin(username, password) ? true : false;
 }
 
 function isValidLogin(username, password)
 {
-    accounts = getSheet("Registed Accounts");
+    accounts = getSheet("Registered Accounts");
     
     const START_ROW = 2;
     const LAST_ROW = accounts.getLastRow();
